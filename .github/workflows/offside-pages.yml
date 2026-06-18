@@ -1,0 +1,44 @@
+name: Deploy Offside a GitHub Pages
+
+# Publica la app de "Fuera de Lugar" (carpeta offside-visualizer/public)
+# en GitHub Pages cada vez que se hace push a esta rama.
+on:
+  push:
+    branches: [claude/offside-visualization-app-d87n83]
+    paths:
+      - 'offside-visualizer/**'
+      - '.github/workflows/offside-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Pages (lo habilita automáticamente)
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Subir artefacto (app de offside)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'offside-visualizer/public'
+
+      - name: Desplegar
+        id: deployment
+        uses: actions/deploy-pages@v4
