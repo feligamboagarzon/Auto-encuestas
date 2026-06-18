@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b6e3b" />
+  <meta name="description" content="Simulador interactivo de fuera de lugar (offside) con líneas estilo VAR. Mueve los jugadores y aprende cómo funciona el fuera de lugar." />
+  <title>Fuera de Lugar ⚽ | Simulador VAR</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>⚽ Fuera de Lugar <span class="tag">VAR</span></h1>
+    <p class="subtitle">Mueve a los jugadores con el dedo y entiende el offside</p>
+  </header>
+
+  <main>
+    <section class="pitch-wrap">
+      <div class="pitch-aspect">
+        <canvas id="pitch" aria-label="Cancha de fútbol interactiva"></canvas>
+      </div>
+
+      <div id="verdict" class="verdict hidden" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="controls">
+      <div class="btn-row primary">
+        <button id="passBtn" class="btn btn-pass">▶️ Pasar el balón</button>
+        <button id="resetBtn" class="btn btn-ghost">↺ Reiniciar</button>
+      </div>
+
+      <div class="presets">
+        <span class="presets-label">Ejemplos:</span>
+        <button class="btn btn-chip" data-scenario="offside">🔴 Offside</button>
+        <button class="btn btn-chip" data-scenario="onside">🟢 Habilitado</button>
+        <button class="btn btn-chip" data-scenario="level">🟡 En línea</button>
+      </div>
+
+      <div class="toggles">
+        <label class="switch">
+          <input type="checkbox" id="toggleLines" checked />
+          <span>Mostrar líneas</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="toggleLive" checked />
+          <span>Análisis en vivo</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="legend">
+      <span class="legend-item"><i class="dot atk"></i> Atacantes</span>
+      <span class="legend-item"><i class="dot def"></i> Defensas</span>
+      <span class="legend-item"><i class="dot gk"></i> Arquero</span>
+      <span class="legend-item"><i class="dot ball"></i> Balón</span>
+      <span class="legend-item"><i class="line off"></i> Línea de offside</span>
+    </section>
+
+    <section class="explainer">
+      <h2>¿Cómo funciona el fuera de lugar?</h2>
+      <p>
+        Un jugador está en <strong>posición de fuera de lugar</strong> si, en el momento en que un
+        compañero le pasa el balón, está <strong>más cerca del arco rival</strong> que:
+      </p>
+      <ol>
+        <li>👟 <strong>el balón</strong>, y</li>
+        <li>🛡️ el <strong>penúltimo defensor</strong> (normalmente el último defensa, ya que el arquero suele ser el último).</li>
+      </ol>
+      <p class="rule-highlight">
+        ⚖️ <strong>La igualdad habilita:</strong> si el atacante está <em>en línea</em> con el penúltimo
+        defensor, <u>NO</u> es fuera de lugar.
+      </p>
+      <ul class="fine-print">
+        <li>Solo cuenta en <strong>campo rival</strong>.</li>
+        <li>Estar en posición de offside <em>no es infracción</em> por sí solo: se sanciona cuando el jugador <strong>participa</strong> de la jugada (recibe el balón).</li>
+        <li>No hay offside en <strong>saque de banda, saque de esquina ni saque de meta</strong>.</li>
+      </ul>
+      <p class="culer-note">
+        💙❤️ Pásale este link a tu amigo culé para que por fin lo entienda 😉
+      </p>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    Hecho con ⚽ y ☕ — arrastra, suelta y aprende.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
